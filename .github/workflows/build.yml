@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+env:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Xmx2G"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build
+        run: ./gradlew build --no-daemon
+
+      - name: Server startup check
+        run: |
+          # Accept EULA (required for Minecraft server to start)
+          mkdir -p run
+          echo "eula=true" > run/eula.txt
+
+          # Start server in background and capture output
+          ./gradlew runServer --no-daemon > server.log 2>&1 &
+          GRADLE_PID=$!
+
+          TIMEOUT=90
+          ELAPSED=0
+          SUCCESS=false
+
+          echo "Waiting for server to start (timeout: ${TIMEOUT}s)..."
+
+          while [ $ELAPSED -lt $TIMEOUT ]; do
+            # "Done (Xs)!" is the standard Minecraft server ready message
+            if grep -q "Done (" server.log 2>/dev/null; then
+              SUCCESS=true
+              break
+            fi
+            # Detect explicit crash/fatal errors
+            if grep -qE "FATAL|Unexpected exception|Aborting" server.log 2>/dev/null; then
+              echo "CRASH DETECTED in server log"
+              break
+            fi
+            # Gradle process died unexpectedly
+            if ! kill -0 $GRADLE_PID 2>/dev/null; then
+              echo "Gradle process exited unexpectedly"
+              break
+            fi
+            sleep 3
+            ELAPSED=$((ELAPSED + 3))
+          done
+
+          # Gracefully stop the server
+          kill $GRADLE_PID 2>/dev/null
+          wait $GRADLE_PID 2>/dev/null || true
+
+          echo ""
+          echo "=== Server Log ==="
+          cat server.log
+
+          if [ "$SUCCESS" = true ]; then
+            echo ""
+            echo "SUCCESS: Server started successfully"
+            exit 0
+          else
+            echo ""
+            echo "FAILURE: Server did not reach ready state within ${TIMEOUT}s or crashed"
+            exit 1
+          fi
