@@ -110,8 +110,3 @@ public static final RegistryObject<EntityType<SupikiEntity>> SUPIKI =
 ## レビュー方針
 - コメントは日本語で行う
 - 修正案を具体的に提示する
-
-## ライセンス
-本リポジトリに含まれる自作コード部分（例: `com.example.supiki_mod` パッケージ以下のコードなど）は、著作権者により **All Rights Reserved** として提供されます。コードの無断転載・再配布を禁止します。
-
-一方で、Minecraft Forge 由来のファイルやその他の同梱物・依存コンポーネントについては、リポジトリ直下の `LICENSE.txt` に記載されたライセンス（LGPL 2.1 など）に従います。各ファイル・ディレクトリに適用されるライセンスを確認したうえで利用してください。
