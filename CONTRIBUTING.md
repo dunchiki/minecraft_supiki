@@ -46,7 +46,7 @@
 ## コーディング規約
 - インデントはスペース4
 - 変数名の命名は lowerCamelCase
-- クラス・インターフェース・メソッドの命名は UpperCamelCase
+- クラス・インターフェースの命名は UpperCamelCase、メソッドの命名は lowerCamelCase
 - 定数の命名は UPPER_SNAKE_CASE
 - Minecraft/Forge の既存命名規則に従う（Registry 名はスネークケース）
 
