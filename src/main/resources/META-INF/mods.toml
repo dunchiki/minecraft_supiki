@@ -14,13 +14,14 @@ version="1.0.0"
 displayName="Supiki Mod"
 #updateJSONURL="https://example.com/updates.json" #optional
 #displayURL="https://example.com/" #optional
-#logoFile="supiki_mod.png" #optional
+logoFile="assets/supiki_mod.png"
 #credits="" #optional
-authors="YourNameHere, OtherNameHere" #optional
+authors="dunchiki"
 #displayTest="MATCH_VERSION" #optional, default=MATCH_VERSION when not clientSideOnly, else IGNORE_ALL_VERSION
 
-description='''Example mod description.
-Newline characters can be used like this, and rendered on the mods screen properly.'''
+description='''
+ｽﾋﾟｷを Mob として実装します
+'''
 
 [[dependencies.supiki_mod]] #recommended
     modId="forge"
