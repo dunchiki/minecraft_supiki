@@ -25,7 +25,7 @@ public final class ModEntities {
 
     private static final String SPIKI_ID = "spiki";
 
-    private static final ResourceKey<EntityType<SpikiEntity>> SPIKI_KEY =
+    private static final ResourceKey<EntityType<?>> SPIKI_KEY =
         ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(SupikiMod.MODID, SPIKI_ID));
 
     public static final RegistryObject<EntityType<SpikiEntity>> SPIKI = ENTITY_TYPES.register(SPIKI_ID, () ->
