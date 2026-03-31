@@ -49,7 +49,10 @@ jobs:
           ./gradlew runServer --no-daemon > server.log 2>&1 &
           GRADLE_PID=$!
 
-          TIMEOUT=90
+          # First boot on a fresh GitHub runner can take a few minutes because
+          # Slime Launcher downloads Minecraft assets before the server reaches
+          # the "Done (...)" ready state.
+          TIMEOUT=300
           ELAPSED=0
           SUCCESS=false
 
