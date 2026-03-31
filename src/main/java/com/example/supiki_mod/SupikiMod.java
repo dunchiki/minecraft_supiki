@@ -1,5 +1,6 @@
 package com.example.supiki_mod;
 
+import com.example.supiki_mod.entity.ModEntities;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -84,6 +85,8 @@ public final class SupikiMod {
         ITEMS.register(modBusGroup);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modBusGroup);
+        // Register custom entity types
+        ModEntities.ENTITY_TYPES.register(modBusGroup);
 
         // Register the item to a creative tab
         BuildCreativeModeTabContentsEvent.BUS.addListener(SupikiMod::addCreative);
