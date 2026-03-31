@@ -4,7 +4,7 @@ import com.example.supiki_mod.entity.ModEntities;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.cow.AbstractCow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -119,7 +119,7 @@ public final class SupikiMod {
     public static class ModBusEvents {
         @SubscribeEvent
         public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
-            event.put(ModEntities.SPIKI.get(), Cow.createAttributes().build());
+            event.put(ModEntities.SPIKI.get(), AbstractCow.createAttributes().build());
         }
     }
 
