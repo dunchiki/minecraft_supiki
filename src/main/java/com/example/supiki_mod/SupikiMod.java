@@ -3,6 +3,7 @@ package com.example.supiki_mod;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -86,6 +88,8 @@ public final class SupikiMod {
         CREATIVE_MODE_TABS.register(modBusGroup);
         // Register the Deferred Register to the mod event bus so entity types get registered
         ModEntities.ENTITY_TYPES.register(modBusGroup);
+        // Register entity attribute creation event to attach attributes to SpikiEntity
+        modBusGroup.addListener(SupikiMod::registerAttributes);
 
         // Register the item to a creative tab
         BuildCreativeModeTabContentsEvent.BUS.addListener(SupikiMod::addCreative);
@@ -104,6 +108,10 @@ public final class SupikiMod {
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+    }
+
+    private static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.SPIKI.get(), Cow.createAttributes().build());
     }
 
     // Add the example block item to the building blocks tab
