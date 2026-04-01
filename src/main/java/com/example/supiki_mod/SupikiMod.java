@@ -90,7 +90,7 @@ public final class SupikiMod {
         // Register the Deferred Register to the mod event bus so entity types get registered
         ModEntities.ENTITY_TYPES.register(modBusGroup);
         // Register entity attribute creation event to attach attributes to SupikiEntity
-        modBusGroup.addListener(SupikiMod::registerAttributes);
+        EntityAttributeCreationEvent.getBus(modBusGroup).addListener(SupikiMod::registerAttributes);
 
         // Register the item to a creative tab
         BuildCreativeModeTabContentsEvent.BUS.addListener(SupikiMod::addCreative);
