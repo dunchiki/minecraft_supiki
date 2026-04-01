@@ -1,4 +1,4 @@
-package com.example.supiki_mod;
+package com.example.supiki_mod.registry;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
