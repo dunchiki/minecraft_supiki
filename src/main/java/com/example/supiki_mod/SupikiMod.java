@@ -1,9 +1,10 @@
 package com.example.supiki_mod;
 
 import com.mojang.logging.LogUtils;
+import com.example.supiki_mod.entity.SupikiEntity;
+import com.example.supiki_mod.registry.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -88,7 +89,7 @@ public final class SupikiMod {
         CREATIVE_MODE_TABS.register(modBusGroup);
         // Register the Deferred Register to the mod event bus so entity types get registered
         ModEntities.ENTITY_TYPES.register(modBusGroup);
-        // Register entity attribute creation event to attach attributes to SpikiEntity
+        // Register entity attribute creation event to attach attributes to SupikiEntity
         modBusGroup.addListener(SupikiMod::registerAttributes);
 
         // Register the item to a creative tab
@@ -111,7 +112,7 @@ public final class SupikiMod {
     }
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntities.SPIKI.get(), Cow.createAttributes().build());
+        event.put(ModEntities.SUPIKI.get(), SupikiEntity.createAttributes().build());
     }
 
     // Add the example block item to the building blocks tab

@@ -11,8 +11,8 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class SpikiEntity extends PathfinderMob {
-    public SpikiEntity(EntityType<? extends SpikiEntity> type, Level level) {
+public class SupikiEntity extends PathfinderMob {
+    public SupikiEntity(EntityType<? extends SupikiEntity> type, Level level) {
         super(type, level);
     }
 
@@ -31,10 +31,6 @@ public class SpikiEntity extends PathfinderMob {
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
-    /**
-     * Base attributes for Spiki entity.
-     * Remember to register this with the Forge attributes event.
-     */
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes();
     }
