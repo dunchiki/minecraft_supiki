@@ -29,7 +29,10 @@ minecraft {
             systemProperty 'forge.enabledGameTestNamespaces', 'supiki_mod'
         }
 
-        register('client')
+        register('client') {
+            // Enable via JVM option: -Dsupiki_mod.debugVisuals=true
+            // systemProperty 'supiki_mod.debugVisuals', 'true'
+        }
 
         register('server') {
             args '--nogui'
