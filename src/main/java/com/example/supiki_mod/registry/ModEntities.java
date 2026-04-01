@@ -13,7 +13,7 @@ public final class ModEntities {
 
     public static final RegistryObject<EntityType<SupikiEntity>> SUPIKI = ENTITY_TYPES.register("supiki",
         () -> EntityType.Builder.of(SupikiEntity::new, MobCategory.CREATURE)
-            .sized(0.9F, 1.4F)
+            .sized(0.45F, 0.7F)
             .build(ENTITY_TYPES.key("supiki"))
     );
 

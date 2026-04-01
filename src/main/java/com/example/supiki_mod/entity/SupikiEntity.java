@@ -1,5 +1,6 @@
 package com.example.supiki_mod.entity;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
@@ -12,8 +13,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class SupikiEntity extends PathfinderMob {
+    private static final boolean DEBUG_VISUALS = true;
+
     public SupikiEntity(EntityType<? extends SupikiEntity> type, Level level) {
         super(type, level);
+        this.setGlowingTag(DEBUG_VISUALS);
+        this.setCustomName(Component.literal("Supiki"));
+        this.setCustomNameVisible(DEBUG_VISUALS);
     }
 
     @Override
