@@ -84,6 +84,8 @@ public final class SupikiMod {
         ITEMS.register(modBusGroup);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modBusGroup);
+        // Register the Deferred Register to the mod event bus so entity types get registered
+        ModEntities.ENTITY_TYPES.register(modBusGroup);
 
         // Register the item to a creative tab
         BuildCreativeModeTabContentsEvent.BUS.addListener(SupikiMod::addCreative);
