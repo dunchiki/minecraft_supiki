@@ -64,13 +64,12 @@ public final class SupikiMod {
         )
     );
 
-    // Creates a spawn egg item for Supiki. Uses Forge's standard spawn egg implementation.
+    // Creates a spawn egg item for Supiki. Uses vanilla SpawnEggItem with entity type via Properties.
     public static final RegistryObject<Item> SUPIKI_SPAWN_EGG = ITEMS.register("supiki_spawn_egg",
         () -> new SpawnEggItem(
-            ModEntities.SUPIKI,
-            0x443626,
-            0xA1A1A1,
-            new Item.Properties().setId(ITEMS.key("supiki_spawn_egg"))
+            new Item.Properties()
+                .setId(ITEMS.key("supiki_spawn_egg"))
+                .spawnEgg(ModEntities.SUPIKI.get())
         )
     );
 
