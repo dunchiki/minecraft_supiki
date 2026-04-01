@@ -36,6 +36,7 @@ public final class SupikiMod {
 
         if (Config.logDirtBlock) {
             LOGGER.info("Config item count: {}", Config.items.size());
+            LOGGER.info("Config items: {}", Config.items);
         }
     }
 
