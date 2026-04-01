@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -60,6 +61,15 @@ public final class SupikiMod {
                 .saturationModifier(2f)
                 .build()
             )
+        )
+    );
+
+    // Creates a spawn egg item for Supiki. Uses vanilla SpawnEggItem with entity type via Properties.
+    public static final RegistryObject<Item> SUPIKI_SPAWN_EGG = ITEMS.register("supiki_spawn_egg",
+        () -> new SpawnEggItem(
+            new Item.Properties()
+                .setId(ITEMS.key("supiki_spawn_egg"))
+                .spawnEgg(ModEntities.SUPIKI.get())
         )
     );
 
@@ -115,5 +125,8 @@ public final class SupikiMod {
     private static void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
             event.accept(EXAMPLE_BLOCK_ITEM);
+
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS)
+            event.accept(SUPIKI_SPAWN_EGG);
     }
 }
