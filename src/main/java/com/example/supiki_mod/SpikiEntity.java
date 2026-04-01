@@ -1,4 +1,4 @@
-package com.example.supiki_mod;
+package com.example.supiki_mod.entity;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
