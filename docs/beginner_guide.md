@@ -46,13 +46,16 @@ protected void registerGoals() {
     this.goalSelector.addGoal(0, new FloatGoal(this));
 
     // 優先度1: 水を避けながらランダムに歩き回る
-    this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+    this.goalSelector.addGoal(1, new SupikiFollowPlayerGoal(this, 1.1D, 8.0F, 2.0F));
 
-    // 優先度2: 近くのプレイヤーを向く（「懐いている感」を演出）
-    this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
+    // 優先度2: 水を避けながらランダムに歩き回る
+    this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.8D));
 
-    // 優先度3: ぼーっとランダムな方向を向く
-    this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+    // 優先度3: 近くのプレイヤーを見る
+    this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+
+    // 優先度4: ぼーっとランダムな方向を向く
+    this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 }
 ```
 
@@ -74,7 +77,7 @@ public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
 public static final RegistryObject<EntityType<SupikiEntity>> SUPIKI =
     ENTITY_TYPES.register("supiki", () -> EntityType.Builder
         .of(SupikiEntity::new, MobCategory.CREATURE)
-        .sized(0.9F, 1.4F)
+        .sized(0.45F, 0.7F)
         .build(ENTITY_TYPES.key("supiki")));
 ```
 
