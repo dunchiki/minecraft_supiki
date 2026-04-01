@@ -79,11 +79,14 @@ public static final RegistryObject<EntityType<SupikiEntity>> SUPIKI =
     ENTITY_TYPES.register("supiki", () -> EntityType.Builder
         .of(SupikiEntity::new, MobCategory.CREATURE)
         .sized(0.6f, 1.8f)
-        .build(new ResourceLocation(SupikiMod.MODID, "supiki").toString()));
+        .build(ENTITY_TYPES.key("supiki")));
 ```
 
 ### イベント処理
-- Mod バスイベントは `@Mod.EventBusSubscriber(modid = SupikiMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)` アノテーションを付けたクラスで処理する
+- コンストラクタ内でのプログラム的なリスナー登録には `EventClass.getBus(modBusGroup).addListener(handler)` を使う
+  - `modBusGroup` は `FMLJavaModLoadingContext#getModBusGroup()` で取得
+  - 例: `EntityAttributeCreationEvent.getBus(modBusGroup).addListener(this::onAttributeCreation)`
+- アノテーションベースの登録には `@Mod.EventBusSubscriber(modid = SupikiMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)` を付けたクラスを使う
 - Forge バスイベントは `bus = Mod.EventBusSubscriber.Bus.FORGE` を使う
 - クライアント専用処理には `value = Dist.CLIENT` を追加する
 
