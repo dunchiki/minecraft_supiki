@@ -1,4 +1,4 @@
-package com.example.supiki_mod.client;
+package com.example.supiki_mod.client.renderer.entity;
 
 import com.example.supiki_mod.entity.SupikiEntity;
 import net.minecraft.client.model.CowModel;
