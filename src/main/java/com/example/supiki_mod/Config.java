@@ -31,7 +31,9 @@ public class Config {
     public static Set<Item> items = Set.of();
 
     private static boolean validateItemName(final Object obj) {
-        return obj instanceof final String itemName && ForgeRegistries.ITEMS.containsKey(Identifier.tryParse(itemName));
+        if (!(obj instanceof final String itemName)) return false;
+        var id = Identifier.tryParse(itemName);
+        return id != null && ForgeRegistries.ITEMS.containsKey(id);
     }
 
     @SubscribeEvent

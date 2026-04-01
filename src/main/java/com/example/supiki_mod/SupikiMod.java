@@ -40,7 +40,7 @@ public final class SupikiMod {
             LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
         }
 
-        Config.items.forEach(item -> LOGGER.info("ITEM >> {}", item.toString()));
+        Config.items.forEach(item -> LOGGER.info("ITEM >> {}", ForgeRegistries.ITEMS.getKey(item)));
     }
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {
