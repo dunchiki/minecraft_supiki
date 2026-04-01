@@ -100,3 +100,66 @@ public static AttributeSupplier.Builder createAttributes() {
 テクスチャパス（`textures/entity/spiki.png`）や翻訳キー（`entity.supiki_mod.spiki`）がずれると、リソースが正しく読み込まれない。
 
 **対処法:** MODID（`supiki_mod`）に合わせてすべてを `Supiki` / `supiki` に統一する。
+
+---
+
+### ❌ MC 1.21.11 でのエンティティレンダラー実装：クラス名・型引数の変更
+
+**発生したエラー:**
+```
+error: cannot find symbol
+import net.minecraft.client.model.CowModel;
+                                 ^
+error: cannot find symbol
+import net.minecraft.resources.ResourceLocation;
+                               ^
+error: wrong number of type arguments; required 3
+public class SupikiRenderer extends MobRenderer<SupikiEntity, CowModel<SupikiEntity>> {
+```
+
+**原因:**
+1. `CowModel` が `net.minecraft.client.model` → `net.minecraft.client.model.animal.cow` に移動した
+2. `ResourceLocation` が `net.minecraft.resources.Identifier` にリネームされた
+3. `MobRenderer` の型引数が 2 個（エンティティ・モデル）から 3 個（エンティティ・レンダーステート・モデル）に変更された
+4. `getTextureLocation` の引数がエンティティ型からレンダーステート型に変更された
+5. `createRenderState()` のオーバーライドが必要になった
+
+**正しいパターン（MC 1.21.11）:**
+```java
+import com.example.supiki_mod.entity.SupikiEntity;
+import net.minecraft.client.model.animal.cow.CowModel;          // ← 新パッケージ
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState; // ← 新クラス
+import net.minecraft.resources.Identifier;                       // ← ResourceLocation の代わり
+
+// 型引数: <エンティティ型, レンダーステート型, モデル型>
+public class SupikiRenderer extends MobRenderer<SupikiEntity, LivingEntityRenderState, CowModel> {
+
+    private static final Identifier COW_TEXTURE =
+            Identifier.withDefaultNamespace("textures/entity/cow/cow.png");
+
+    public SupikiRenderer(EntityRendererProvider.Context context) {
+        super(context, new CowModel(context.bakeLayer(ModelLayers.COW)), 0.7f);
+    }
+
+    @Override
+    public Identifier getTextureLocation(LivingEntityRenderState state) { // ← 引数がレンダーステート型
+        return COW_TEXTURE;
+    }
+
+    @Override
+    public LivingEntityRenderState createRenderState() { // ← 必須のオーバーライド
+        return new LivingEntityRenderState();
+    }
+}
+```
+
+**MC 1.21.11 での Identifier 生成メソッド:**
+```java
+Identifier.withDefaultNamespace("textures/...")   // → minecraft:textures/...
+Identifier.fromNamespaceAndPath("ns", "path")     // → ns:path
+Identifier.parse("ns:path")                       // → ns:path (throws on invalid)
+Identifier.tryParse("ns:path")                    // → nullable
+```
