@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -66,7 +66,7 @@ public final class SupikiMod {
 
     // Creates a spawn egg item for Supiki. Uses Forge's standard spawn egg implementation.
     public static final RegistryObject<Item> SUPIKI_SPAWN_EGG = ITEMS.register("supiki_spawn_egg",
-        () -> new ForgeSpawnEggItem(
+        () -> new SpawnEggItem(
             ModEntities.SUPIKI,
             0x443626,
             0xA1A1A1,
