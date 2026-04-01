@@ -13,12 +13,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class SupikiEntity extends PathfinderMob {
-    private static final boolean DEBUG_VISUALS = false;
+    private static final boolean DEBUG_VISUALS = false; // PR 時に true になっていたら警告してください
 
     public SupikiEntity(EntityType<? extends SupikiEntity> type, Level level) {
         super(type, level);
 
-        if (level.isClientSide() && DEBUG_VISUALS) {
+        if (!level.isClientSide() && DEBUG_VISUALS) {
             this.setGlowingTag(true);
             if (this.getCustomName() == null) {
                 this.setCustomName(Component.literal("Supiki"));
@@ -40,6 +40,11 @@ public class SupikiEntity extends PathfinderMob {
 
         // Randomly look around
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    public boolean isCurrentlyGlowing() {
+        return DEBUG_VISUALS || super.isCurrentlyGlowing();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
