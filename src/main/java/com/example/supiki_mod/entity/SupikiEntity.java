@@ -17,9 +17,14 @@ public class SupikiEntity extends PathfinderMob {
 
     public SupikiEntity(EntityType<? extends SupikiEntity> type, Level level) {
         super(type, level);
-        this.setGlowingTag(DEBUG_VISUALS);
-        this.setCustomName(Component.literal("Supiki"));
-        this.setCustomNameVisible(DEBUG_VISUALS);
+
+        if (DEBUG_VISUALS) {
+            this.setGlowingTag(true);
+            if (this.getCustomName() == null) {
+                this.setCustomName(Component.literal("Supiki"));
+            }
+            this.setCustomNameVisible(true);
+        }
     }
 
     @Override
