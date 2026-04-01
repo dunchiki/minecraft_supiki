@@ -13,7 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class SupikiEntity extends PathfinderMob {
-    private static final boolean DEBUG_VISUALS = false; // PR 時に true になっていたら警告してください
+    // Enable via JVM option: -Dsupiki_mod.debugVisuals=true
+    private static final boolean DEBUG_VISUALS = Boolean.getBoolean("supiki_mod.debugVisuals");
 
     public SupikiEntity(EntityType<? extends SupikiEntity> type, Level level) {
         super(type, level);
