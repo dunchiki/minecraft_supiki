@@ -5,12 +5,14 @@ import com.example.supiki_mod.registry.ModEntities;
 import com.example.supiki_mod.registry.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
 @Mod(SupikiMod.MODID)
@@ -35,9 +37,10 @@ public final class SupikiMod {
         LOGGER.info("Supiki Mod common setup initialized");
 
         if (Config.logDirtBlock) {
-            LOGGER.info("Config item count: {}", Config.items.size());
-            LOGGER.info("Config items: {}", Config.items);
+            LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
         }
+
+        Config.items.forEach(item -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {
