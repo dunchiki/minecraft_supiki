@@ -1,5 +1,6 @@
 package com.example.supiki_mod.client.renderer.entity;
 
+import com.example.supiki_mod.SupikiMod;
 import com.example.supiki_mod.entity.SupikiEntity;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -10,7 +11,7 @@ import net.minecraft.resources.Identifier;
 
 public class SupikiRenderer extends MobRenderer<SupikiEntity, LivingEntityRenderState, CowModel> {
 
-    private static final Identifier SUPIKI_TEXTURE = Identifier.fromNamespaceAndPath("supiki_mod", "textures/entity/supiki/supiki.png");
+    private static final Identifier SUPIKI_TEXTURE = Identifier.fromNamespaceAndPath(SupikiMod.MODID, "textures/entity/supiki/supiki.png");
 
     public SupikiRenderer(EntityRendererProvider.Context context) {
         super(context, new CowModel(context.bakeLayer(ModelLayers.COW)), 0.7f);
