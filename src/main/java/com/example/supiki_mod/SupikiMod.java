@@ -21,14 +21,14 @@ public final class SupikiMod {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public SupikiMod(FMLJavaModLoadingContext context) {
-        var modBusGroup = context.getModBusGroup();
+        var modEventBus = context.getModEventBus();
 
-        FMLCommonSetupEvent.getBus(modBusGroup).addListener(this::commonSetup);
-        EntityAttributeCreationEvent.getBus(modBusGroup).addListener(SupikiMod::registerAttributes);
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(SupikiMod::registerAttributes);
         BuildCreativeModeTabContentsEvent.BUS.addListener(SupikiMod::addCreative);
 
-        ModEntities.ENTITY_TYPES.register(modBusGroup);
-        ModItems.ITEMS.register(modBusGroup);
+        ModEntities.ENTITY_TYPES.register(modEventBus);
+        ModItems.ITEMS.register(modEventBus);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
